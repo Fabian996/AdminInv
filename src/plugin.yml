@@ -1,0 +1,9 @@
+name: AdminInv
+version: 1.0
+main: de.Fabian996.Admin.main.AdminMain
+author: Fabian996
+
+commands:
+  admininv:
+    description: Show all Admin function
+    permission: admininv.inv
