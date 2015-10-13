@@ -1,7 +1,6 @@
 package de.Fabian996.Admin.Funktion;
 
 import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
@@ -12,14 +11,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class AdminFunction implements Listener{
 	public static final String Prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "AdminInv" + ChatColor.DARK_GRAY + "] ";
 	
 	private ArrayList<Player> vanished = new ArrayList<>();
-	public Inventory inv1 = null;
 	
 	@EventHandler
 	public void Inventory(InventoryClickEvent e)
