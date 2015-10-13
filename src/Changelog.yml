@@ -1,7 +1,7 @@
 #  Changelog 
 #--------------
 #09.10.2015 [+] Added [-] Remove
-#[+] Function: | Fly | Heal | GM 0/1/2/3 | Day | Night | Toggledownfall <on/off> | Reload | Stop|
+#[+] Admin Function: | Fly | Heal | GM 0/1/2/3 | Day | Night | Toggledownfall <on/off> | Reload | Stop|
 #[+] Place the items in the Admin Inventory
 #--------------
 
@@ -9,11 +9,16 @@
 #10.10.2015
 #[-] Place the items in the Admin Inventory
 #[+] New Place the items in the Admin Inventory
-#[+] Function: | Difficult <Peaceful/Easy/Normal/Hard> |
+#[+] Admin Function: | Difficult <Peaceful/Easy/Normal/Hard> | Vanish <on/off>
 #--------------
 
 #--------------
 #11.10.2015
 #[-/+] Item´s
 #[+] Description of all Object add
+#[+] Create new ModeratorFunction [ModeratorFunction.java]
+#[+] AdminMain new Moderator Inventory
+#[+] Create new Class for Moderator ClickEvent is BlazeRod.java
+#[+] Moderator Function: | Fly | Heal | GM 0/1/2 | Day | Night |
+#
 #--------------
