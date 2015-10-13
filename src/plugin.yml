@@ -1,9 +1,20 @@
 name: AdminInv
-version: 1.0
+version: 1.1
 main: de.Fabian996.Admin.main.AdminMain
 author: Fabian996
 
 commands:
   admininv:
-    description: Show all Admin function
+    description: Show all Admin Function
     permission: admininv.inv
+    Default: OP
+  modinv:
+    description: Show all Moderator Function
+    permission: modinv.inv
+    aliases: 
+      - Vanish
+      - Reload
+      - Stop
+      - Peaceful
+      - Easy
+      - Hard
