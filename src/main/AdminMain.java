@@ -18,8 +18,8 @@ import de.Fabian996.Admin.Commands.GiveGhast;
 import de.Fabian996.Admin.Commands.Help;
 import de.Fabian996.Admin.EventHandler.BlazeRoad;
 import de.Fabian996.Admin.EventHandler.GhastTear;
-import de.Fabian996.Admin.Funktion.AdminFunction;
-import de.Fabian996.Admin.Funktion.ModeratorFunction;
+import de.Fabian996.Admin.Function.AdminFunction;
+import de.Fabian996.Admin.Function.ModeratorFunction;
 import de.Fabian996.Admin.Listener.warp;
 import de.Fabian996.Admin.Utils.cache;
 
@@ -53,7 +53,7 @@ public class AdminMenu extends JavaPlugin
 		getCommand("giveblaze").setExecutor(new GiveBlaze());
 		getCommand("adminhelp").setExecutor(new Help());	
 		
-		//Warp
+		//Warp - Up V1.3
 		getServer().getPluginManager().registerEvents(new warp(), this);
 		
 		//Report
