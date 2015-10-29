@@ -16,10 +16,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import de.Fabian996.Admin.Commands.GiveBlaze;
 import de.Fabian996.Admin.Commands.GiveGhast;
 import de.Fabian996.Admin.Commands.Help;
+import de.Fabian996.Admin.Commands.WarpHelp;
 import de.Fabian996.Admin.EventHandler.BlazeRoad;
 import de.Fabian996.Admin.EventHandler.GhastTear;
 import de.Fabian996.Admin.Function.AdminFunction;
 import de.Fabian996.Admin.Function.ModeratorFunction;
+import de.Fabian996.Admin.Listener.Blocken;
 import de.Fabian996.Admin.Listener.warp;
 import de.Fabian996.Admin.Utils.cache;
 
@@ -30,59 +32,83 @@ public class AdminMenu extends JavaPlugin
 	public Inventory inv1 = null;
 	public Inventory inv2 = null;
 	
-	public void onEnable()
-	{	
-		System.out.println("[AdminInv] =================================");
-	    System.out.println("[AdminInv] Author: Fabian996");
-	    System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
-	    System.out.println("[AdminInv] Status: Aktiviert");
-	    System.out.println("[AdminInv] =================================");
+	public void onEnable(){	
+	System.out.println("[AdminInv] =================================");
+	System.out.println("[AdminInv] Author: " + getDescription().getAuthors());
+	System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
+	System.out.println("[AdminInv] Status: Aktiviert");
+	System.out.println("[AdminInv] =================================");
 	    
-	    //Admin Inventory
+	    
+	    registerCommands();
+	    registerListener();
+	
+		//Report System [Up Version 1.4]
+		
+	    
+		//Spawn System [Up Version 1.3]
+	    
+	    
+		//Lobby System [Up Version 1.3]
+	    
+	    
+		//Hub System [Up Version 1.3]
+		
+	    
+		//Warning System [Up Version 1.4]
+		
+	    
+		//Kick System [Up Version 1.4]
+		
+	    
+		//TempBan System [Up Version 1.4]
+		
+	    
+		//PermaBan System [Up Version 1.4]
+
+	    
+		//Teleport System [Up Version 1.4]
+
+		
+	    cache.loadMsgCfg();
+	}
+	
+	public void onDisable(){
+	System.out.println("[AdminInv] =================================");
+	System.out.println("[AdminInv] Author: " + getDescription().getAuthors());
+	System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
+	System.out.println("[AdminInv] Status: Deaktiviert");
+	System.out.println("[AdminInv] =================================");
+	}
+	
+	public void registerCommands(){
+		//AdminInv Commands [Up Version 1.2]
+		getCommand("giveghast").setExecutor(new GiveGhast());
+		getCommand("giveblaze").setExecutor(new GiveBlaze());
+		getCommand("adminhelp").setExecutor(new Help());
+		
+		//Warp Command [Up Version 1.3]
+		getCommand("warp").setExecutor(new warp(this));
+		getCommand("warphelp").setExecutor(new WarpHelp());
+	}
+	
+	public void registerListener(){
+	    //Admin Inventory [Up Version 1.0]
 		getServer().getPluginManager().registerEvents(new AdminFunction(), this);
 		
-		//Moderator Inventory
+		//Moderator Inventory [Up Version 1.1]
 		getServer().getPluginManager().registerEvents(new ModeratorFunction(), this);
 		
-		//Menü Open
+		//Menü Open [Up Version 1.0 | Up Version 1.1]
 		getServer().getPluginManager().registerEvents(new GhastTear(), this); // Admin
 		getServer().getPluginManager().registerEvents(new BlazeRoad(), this); // Moderator
 		
-		//AdminInv Commands
-		getCommand("giveghast").setExecutor(new GiveGhast());
-		getCommand("giveblaze").setExecutor(new GiveBlaze());
-		getCommand("adminhelp").setExecutor(new Help());	
-		
-		//Warp - Up V1.3
+		//Warp Command [Up Version 1.3]
 		getServer().getPluginManager().registerEvents(new warp(), this);
 		
-		//Report
-		
-		//Spawn System
-		
-		//Warning System
-		
-		//Kick System
-		
-		//TempBan System
-		
-		//PermaBan System
-
-		//Teleport System
-		
-	    cache.loadMsgCfg();
-
-	    getCommand("warp").setExecutor(new warp(this));
+		//Blocken [Up Version 1.3]
+		getServer().getPluginManager().registerEvents(new Blocken(), this);
 	}
-	public void onDisable()
-	{
-		System.out.println("[AdminInv] =================================");
-	    System.out.println("[AdminInv] Author: Fabian996");
-	    System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
-	    System.out.println("[AdminInv] Status: Deaktiviert");
-	    System.out.println("[AdminInv] =================================");
-	}
-
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{	Player p = (Player)sender;
