@@ -13,16 +13,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.Fabian996.Admin.Commands.GiveBlaze;
+import de.Fabian996.Admin.Commands.GiveGhast;
+import de.Fabian996.Admin.Commands.Help;
 import de.Fabian996.Admin.EventHandler.BlazeRoad;
 import de.Fabian996.Admin.EventHandler.GhastTear;
 import de.Fabian996.Admin.Funktion.AdminFunction;
 import de.Fabian996.Admin.Funktion.ModeratorFunction;
+import de.Fabian996.Admin.Listener.warp;
+import de.Fabian996.Admin.Utils.cache;
 
-public class AdminMain extends JavaPlugin
+public class AdminMenu extends JavaPlugin
 {
 	
 	public Inventory inv = null;
 	public Inventory inv1 = null;
+	public Inventory inv2 = null;
 	
 	public void onEnable()
 	{	
@@ -34,19 +40,40 @@ public class AdminMain extends JavaPlugin
 	    
 	    //Admin Inventory
 		getServer().getPluginManager().registerEvents(new AdminFunction(), this);
-
 		
 		//Moderator Inventory
 		getServer().getPluginManager().registerEvents(new ModeratorFunction(), this);
-
 		
 		//Menü Open
 		getServer().getPluginManager().registerEvents(new GhastTear(), this); // Admin
 		getServer().getPluginManager().registerEvents(new BlazeRoad(), this); // Moderator
 		
+		//AdminInv Commands
+		getCommand("giveghast").setExecutor(new GiveGhast());
+		getCommand("giveblaze").setExecutor(new GiveBlaze());
+		getCommand("adminhelp").setExecutor(new Help());	
+		
+		//Warp
+		getServer().getPluginManager().registerEvents(new warp(), this);
+		
+		//Report
+		
+		//Spawn System
+		
+		//Warning System
+		
+		//Kick System
+		
+		//TempBan System
+		
+		//PermaBan System
+
+		//Teleport System
+		
+	    cache.loadMsgCfg();
+
+	    getCommand("warp").setExecutor(new warp(this));
 	}
-	
-	
 	public void onDisable()
 	{
 		System.out.println("[AdminInv] =================================");
@@ -62,7 +89,7 @@ public class AdminMain extends JavaPlugin
 		if(cmd.getName().equalsIgnoreCase("admininv")){
 			if(p.hasPermission("admininv.inv")){
 				p.playSound(p.getLocation(), Sound.FIREWORK_BLAST, 1000.0F, 6.0F);
-				inv = p.getPlayer().getServer().createInventory(null, 45, ChatColor.RED + "Admin Inventar");
+				inv = p.getPlayer().getServer().createInventory(null, 45, ChatColor.RED + "Admin Inventory");
 				//	|0 |1 |2 |3 |4 |5 |6 |7 |8 |
 				// 	|9 |10|11|12|13|14|15|16|17|
 				// 	|18|19|20|21|22|23|24|25|26|
@@ -209,6 +236,14 @@ public class AdminMain extends JavaPlugin
 				Hardmeta.setLore(H);
 				Hard.setItemMeta(Hardmeta);
 				
+				//Teleport
+				ItemStack Teleport = new ItemStack(Material.BOWL);
+				ItemMeta Teleportmeta = Teleport.getItemMeta();
+				ArrayList<String> Tele = new ArrayList<String>();
+				Tele.add(ChatColor.RED + "You can Teleport to Players");
+				Teleportmeta.setLore(Tele);
+				Teleport.setItemMeta(Teleportmeta);
+				
 				//Inventory Line 1
 				inv.setItem(0, Heal);
 				inv.setItem(3, SM);
@@ -230,6 +265,7 @@ public class AdminMain extends JavaPlugin
 				//Inventory Line 4
 				inv.setItem(28, WeatherCl);
 				inv.setItem(27, ClearW);
+				inv.setItem(35, Teleport);
 
 				
 				//Inventory Line 5
@@ -366,7 +402,15 @@ public class AdminMain extends JavaPlugin
 					Vanishmeta.setLore(V);
 					Vanish.setItemMeta(Vanishmeta);
 					
-					
+					//Teleport
+					ItemStack Teleport = new ItemStack(Material.BOWL);
+					ItemMeta Teleportmeta = Teleport.getItemMeta();
+					ArrayList<String> Tele = new ArrayList<String>();
+					Teleportmeta.setDisplayName("Teleporter");
+					Tele.add(ChatColor.RED + "You can Teleport to Players");
+					Teleportmeta.setLore(Tele);
+					Teleport.setItemMeta(Teleportmeta);
+
 					
 					//Inventory Line 1
 					inv1.setItem(0, Heal);
@@ -389,13 +433,12 @@ public class AdminMain extends JavaPlugin
 					//Inventory Line 4
 					inv1.setItem(27, WeatherClear);
 					inv1.setItem(28, ClearWeather);
+					inv1.setItem(35, Teleport);
 					
 					//Inventory Line 5
 					
 					inv1.setItem(40, Vanish);
-					
-					
-					
+
 					p.getPlayer().openInventory(inv1);
 					return true;
 				}
