@@ -1,6 +1,6 @@
 name: AdminInv
-version: 1.1
-main: de.Fabian996.Admin.main.AdminMain
+version: 1.3
+main: de.Fabian996.Admin.main.AdminMenu
 author: Fabian996
 
 commands:
@@ -8,13 +8,22 @@ commands:
     description: Show all Admin Function
     permission: admininv.inv
     Default: OP
+    
   modinv:
     description: Show all Moderator Function
     permission: modinv.inv
-    aliases: 
-      - Vanish
-      - Reload
-      - Stop
-      - Peaceful
-      - Easy
-      - Hard
+
+  giveGhast:
+    description: Give the Admin Item
+    permission: admininv.ghast
+    Default: OP
+    
+  giveBlaze:
+    description: Give the Moderator Item
+    permission: modinv.blaze
+    
+  adminhelp:
+    description: Show all Commands
+    
+  warp:
+    description: Create Warps
