@@ -20,10 +20,26 @@
 #[+] AdminMain new Moderator Inventory
 #[+] Create new Class for Moderator ClickEvent is BlazeRod.java
 #[+] Moderator Function: | Fly | Heal | GM 0/1/2 | Day | Night |
-#
+#--------------
+
 #--------------
 #24.10.2015
 #[+] Give Items for Admin and Moderator Inventory {[Commands] /giveGhast and /giveBlaze }
+#--------------
+
+#--------------
+#25.10.2015
+#[+] New Command [/adminhelp] whit all commands of this Plugin
+#[+] New Commands [/warp <set> [Warpname] | /warp <del> [Warpname] | /warp [Warpname] <player>]
+#--------------
+
+#--------------
+#29.10.2015
+#[+] 
+#
+#
+#
+#
 #
 #
 #
