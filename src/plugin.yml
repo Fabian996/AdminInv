@@ -6,13 +6,13 @@ author: Fabian996
 commands:
   admininv:
     description: Show all Admin Function
-    permission: admininv.inv
+    permission: admininv.admininv
     Default: OP
     
   modinv:
     description: Show all Moderator Function
-    permission: modinv.inv
-
+    permission: admininv.modinv
+      
   giveGhast:
     description: Give the Admin Item
     permission: admininv.ghast
@@ -22,8 +22,51 @@ commands:
     description: Give the Moderator Item
     permission: modinv.blaze
     
-  adminhelp:
-    description: Show all Commands
-    
   warp:
-    description: Create Warps
+    description: Use the Warp point
+    permission: admininv.use.warp
+  setwarp:
+    description: Create Warps points
+    permission: admininv.setwarp
+  
+  delwarp:
+    description: Delete Warp points
+    permission: admininv.delwarp
+    
+  warphelp:
+    description: Show all Warp Commands 
+       
+  adminhelp:
+    description: Show all Admin Commands on
+    permission: admininv.adminhelp
+  
+  modhelp:
+    description: Show all Moderator Commands on
+    permission: admininv.modhelp
+    
+  sethub:
+    description: Set the Hub of the Server
+    permission: admininv.sethub
+    Default: OP
+     
+  hub:
+    description: Teleport to the Hub
+    Default: true
+    
+  setlobby:
+    description: Set the Lobby of the Server
+    permission: admininv.setlobby
+    Default: OP
+     
+  lobby:
+    description: Teleport to the Lobby
+    Default: true
+    
+  setspawn:
+    description: Set the Spawn of the Server
+    permission: admininv.setspawn
+    Default: OP
+     
+  spawn:
+    description: Teleport to the Spawn
+    Default: true
