@@ -1,6 +1,9 @@
 package de.Fabian996.Admin.main;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,47 +15,51 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 import de.Fabian996.Admin.Commands.GiveBlaze;
 import de.Fabian996.Admin.Commands.GiveGhast;
-import de.Fabian996.Admin.Commands.Help;
+import de.Fabian996.Admin.Commands.AdminHelp;
+import de.Fabian996.Admin.Commands.HubCommand;
+import de.Fabian996.Admin.Commands.LobbyCommand;
+import de.Fabian996.Admin.Commands.ModeratorHelp;
+import de.Fabian996.Admin.Commands.SpawnCommand;
+import de.Fabian996.Admin.Commands.WarpCommand;
 import de.Fabian996.Admin.Commands.WarpHelp;
 import de.Fabian996.Admin.EventHandler.BlazeRoad;
 import de.Fabian996.Admin.EventHandler.GhastTear;
 import de.Fabian996.Admin.Function.AdminFunction;
 import de.Fabian996.Admin.Function.ModeratorFunction;
 import de.Fabian996.Admin.Listener.Blocken;
-import de.Fabian996.Admin.Listener.warp;
-import de.Fabian996.Admin.Utils.cache;
 
-public class AdminMenu extends JavaPlugin
-{
+
+public class AdminMenu extends JavaPlugin{
 	
 	public Inventory inv = null;
 	public Inventory inv1 = null;
 	public Inventory inv2 = null;
 	
-	public void onEnable(){	
+	Logger log = getLogger();
+	
+	public void onEnable()	{	
 	System.out.println("[AdminInv] =================================");
 	System.out.println("[AdminInv] Author: " + getDescription().getAuthors());
 	System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
 	System.out.println("[AdminInv] Status: Aktiviert");
 	System.out.println("[AdminInv] =================================");
 	    
+	    try {
+	        Metrics metrics = new Metrics(this);
+	        metrics.start();
+	      } catch (IOException e) {
+	        this.log.warning(ChatColor.RED + "Could not connect to Metrics!");
+	      }
 	    
 	    registerCommands();
 	    registerListener();
+	    registerConfig();
 	
 		//Report System [Up Version 1.4]
-		
-	    
-		//Spawn System [Up Version 1.3]
-	    
-	    
-		//Lobby System [Up Version 1.3]
-	    
-	    
-		//Hub System [Up Version 1.3]
 		
 	    
 		//Warning System [Up Version 1.4]
@@ -69,51 +76,90 @@ public class AdminMenu extends JavaPlugin
 	    
 		//Teleport System [Up Version 1.4]
 
-		
-	    cache.loadMsgCfg();
+
 	}
-	
-	public void onDisable(){
+	public void onDisable()	{
 	System.out.println("[AdminInv] =================================");
 	System.out.println("[AdminInv] Author: " + getDescription().getAuthors());
 	System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
 	System.out.println("[AdminInv] Status: Deaktiviert");
 	System.out.println("[AdminInv] =================================");
 	}
+	private void registerConfig() {
+	
+		File file = new File(getDataFolder() + File.separator + "config.yml");
+		if (!file.exists()){
+	        	getLogger().info("Generating config.yml");
+
+			getConfig().options().header("#		   AdminInv\n# 	  Version 1.3\n#    Author: Fabian996\n#   Developer: Fabian996");
+			getConfig().addDefault("Config Version", "3.1");
+			getConfig().addDefault("HubEnabled", "True");
+			getConfig().addDefault("LobbyEnabled", "True");
+			getConfig().addDefault("WarpEnabled", "True");
+			getConfig().addDefault("Join.Spawn", "True");
+			getConfig().addDefault("Join.Hub", "False");
+			getConfig().addDefault("Join.Lobby", "False");
+			getConfig().addDefault("NOTIFICATIONS.Warp", "True");
+			getConfig().addDefault("NOTIFICATIONS.Perm", "True");
+			getConfig().addDefault("NOTIFICATIONS.Args", "True");
+			getConfig().options().copyDefaults(true);
+			saveConfig();
+
+			getConfig().options().copyDefaults(true);
+			saveConfig();
+	    }
+	    if (!getConfig().getString("Config Version").equalsIgnoreCase("3.1")){
+	    	getLogger().warning("Config Outdated!!!! Plugin will not work properly!! Please copy your settings, delete the config and restart your server!!");
+	}
+}
+
 	
 	public void registerCommands(){
 		//AdminInv Commands [Up Version 1.2]
 		getCommand("giveghast").setExecutor(new GiveGhast());
 		getCommand("giveblaze").setExecutor(new GiveBlaze());
-		getCommand("adminhelp").setExecutor(new Help());
+		getCommand("adminhelp").setExecutor(new AdminHelp());
+		getCommand("modhelp").setExecutor(new ModeratorHelp());
 		
 		//Warp Command [Up Version 1.3]
-		getCommand("warp").setExecutor(new warp(this));
+		getCommand("warp").setExecutor(new WarpCommand(this));
+		getCommand("delwarp").setExecutor(new WarpCommand(this));
+		getCommand("setwarp").setExecutor(new WarpCommand(this));
 		getCommand("warphelp").setExecutor(new WarpHelp());
+		
+		//Spawn System [Up Version 1.3]
+		getCommand("setspawn").setExecutor(new SpawnCommand(this));
+		getCommand("spawn").setExecutor(new SpawnCommand(this));
+		
+	    //Lobby System [Up Version 1.3]
+		getCommand("setlobby").setExecutor(new LobbyCommand(this));
+		getCommand("lobby").setExecutor(new LobbyCommand(this));
+	    
+	    //Hub System [Up Version 1.3]
+		getCommand("sethub").setExecutor(new HubCommand(this));
+		getCommand("hub").setExecutor(new HubCommand(this));
+	    
 	}
 	
 	public void registerListener(){
-	    //Admin Inventory [Up Version 1.0]
-		getServer().getPluginManager().registerEvents(new AdminFunction(), this);
+	//Admin Inventory [Up Version 1.0]
+	getServer().getPluginManager().registerEvents(new AdminFunction(), this);
+	
+	//Moderator Inventory [Up Version 1.1]
+	getServer().getPluginManager().registerEvents(new ModeratorFunction(), this);
 		
-		//Moderator Inventory [Up Version 1.1]
-		getServer().getPluginManager().registerEvents(new ModeratorFunction(), this);
+	//Menü Open [Up Version 1.0 | Up Version 1.1]
+	getServer().getPluginManager().registerEvents(new GhastTear(), this); // Admin
+	getServer().getPluginManager().registerEvents(new BlazeRoad(), this); // Moderator
 		
-		//Menü Open [Up Version 1.0 | Up Version 1.1]
-		getServer().getPluginManager().registerEvents(new GhastTear(), this); // Admin
-		getServer().getPluginManager().registerEvents(new BlazeRoad(), this); // Moderator
-		
-		//Warp Command [Up Version 1.3]
-		getServer().getPluginManager().registerEvents(new warp(), this);
-		
-		//Blocken [Up Version 1.3]
-		getServer().getPluginManager().registerEvents(new Blocken(), this);
+	//Blocken [Up Version 1.3]
+	getServer().getPluginManager().registerEvents(new Blocken(), this);
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{	Player p = (Player)sender;
 		if(cmd.getName().equalsIgnoreCase("admininv")){
-			if(p.hasPermission("admininv.inv")){
+			if(p.hasPermission("admininv.admininv")){
 				p.playSound(p.getLocation(), Sound.FIREWORK_BLAST, 1000.0F, 6.0F);
 				inv = p.getPlayer().getServer().createInventory(null, 45, ChatColor.RED + "Admin Inventory");
 				//	|0 |1 |2 |3 |4 |5 |6 |7 |8 |
@@ -304,7 +350,7 @@ public class AdminMenu extends JavaPlugin
 				return true;
 				}
 			}else if(cmd.getName().equalsIgnoreCase("modinv")){
-				if(p.hasPermission("modinv.inv")){
+				if(p.hasPermission("admininv.modinv")){
 					p.playSound(p.getLocation(), Sound.FIREWORK_LAUNCH, 1000.0F, 6.0F);
 					inv1 = p.getPlayer().getServer().createInventory(null, 45, ChatColor.DARK_GREEN +"Moderator Inventory");
 					//	|0 |1 |2 |3 |4 |5 |6 |7 |8 |
