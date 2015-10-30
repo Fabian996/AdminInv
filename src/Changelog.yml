@@ -28,15 +28,18 @@
 #--------------
 
 #--------------
-#25.10.2015
+#27.10.2015
 #[+] New Command [/adminhelp] whit all commands of this Plugin
 #[+] New Commands [/warp <set> [Warpname] | /warp <del> [Warpname] | /warp [Warpname] <player>]
 #--------------
 
 #--------------
 #29.10.2015
-#[+] 
-#
+#[+] Warphelp added
+#[+] Blocken.java added
+#[+] LobbyCommand.java added whit Command [/setlobby and /lobby]
+#[+] HubCommand.java added whit Command [/sethub and /hub]
+#[+] SpawnCommand.java added whit Command [/setspawn and /spawn]
 #
 #
 #
