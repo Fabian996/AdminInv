@@ -48,116 +48,156 @@ public class AdminMenu extends JavaPlugin{
 	System.out.println("[AdminInv] Status: Aktiviert");
 	System.out.println("[AdminInv] =================================");
 	    
-	    try {
-	        Metrics metrics = new Metrics(this);
-	        metrics.start();
-	      } catch (IOException e) {
-	        this.log.warning(ChatColor.RED + "Could not connect to Metrics!");
-	      }
 	    
-	    registerCommands();
-	    registerListener();
-	    registerConfig();
+	Metrics();
+	    
+	registerCommands();
+	registerListener();
+	registerConfig();
 	
-		//Report System [Up Version 1.4]
+	//Report System [Up Version 1.4]
 		
 	    
-		//Warning System [Up Version 1.4]
+	//Warning System [Up Version 1.4]
 		
 	    
-		//Kick System [Up Version 1.4]
-		
+	//Kick System [Up Version 1.4]
+	/*  getCommand("kick").setExecutor(new KickSystem());
+	* 
+	*/
 	    
-		//TempBan System [Up Version 1.4]
-		
+	//TempBan System [Up Version 1.4]
+	/*  getCommand("temban").setExecutor(new TemBanSystem());
+	* 
+	*/
 	    
-		//PermaBan System [Up Version 1.4]
-
+	//PermaBan System [Up Version 1.4]
+	/*  getCommand("ban").setExecutor(new BanSystem());
+	* 
+	*/
 	    
-		//Teleport System [Up Version 1.4]
-
-
+	//Unban System
+	/*  getCommand("unban").setExecutor(new UnbanSystem());
+	* 
+	*/
+	    
+	//Teleport System [Up Version 1.4]
+	    
+	    
+	//AutoBroadcast [Up Version 1.5]
+	/*  getCommand("ab").setExecutor(new AutoBroadcast());
+	* 
+	*/
+	   
 	}
-	public void onDisable()	{
+
+
+	public void  Metrics(){
+		if (getConfig().getBoolean("Metrics")) {
+            try {
+                Metrics metrics = new Metrics(this);
+                metrics.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.severe("[AdminInv] Metrics Failed To Start!");
+            }
+        } else {
+            getLogger()
+                    .info("Metrics wasn't started because it is disabled in the config!");
+        }
+    }
+	
+
+	public void onDisable()
+	{
 	System.out.println("[AdminInv] =================================");
 	System.out.println("[AdminInv] Author: " + getDescription().getAuthors());
 	System.out.println("[AdminInv] Version: v" + getDescription().getVersion());
 	System.out.println("[AdminInv] Status: Deaktiviert");
 	System.out.println("[AdminInv] =================================");
 	}
+
+
 	private void registerConfig() {
 	
-		File file = new File(getDataFolder() + File.separator + "config.yml");
-		if (!file.exists()){
-	        	getLogger().info("Generating config.yml");
+	File file = new File(getDataFolder() + File.separator + "config.yml");
+	if (!file.exists()){
+	getLogger().info("Generating config.yml");
 
-			getConfig().options().header("#		   AdminInv\n# 	  Version 1.3\n#    Author: Fabian996\n#   Developer: Fabian996");
-			getConfig().addDefault("Config Version", "3.1");
-			getConfig().addDefault("HubEnabled", "True");
-			getConfig().addDefault("LobbyEnabled", "True");
-			getConfig().addDefault("WarpEnabled", "True");
-			getConfig().addDefault("Join.Spawn", "True");
-			getConfig().addDefault("Join.Hub", "False");
-			getConfig().addDefault("Join.Lobby", "False");
-			getConfig().addDefault("NOTIFICATIONS.Warp", "True");
-			getConfig().addDefault("NOTIFICATIONS.Perm", "True");
-			getConfig().addDefault("NOTIFICATIONS.Args", "True");
-			getConfig().options().copyDefaults(true);
-			saveConfig();
+	getConfig().options().header("#		   AdminInv\n# 	  Version 1.3\n#    Author: Fabian996\n#   Developer: Fabian996");
+	getConfig().addDefault("ConfigVersion", "3.1");
+	getConfig().addDefault("HubEnabled", "True");
+	getConfig().addDefault("LobbyEnabled", "True");
+	getConfig().addDefault("WarpEnabled", "True");
+	getConfig().addDefault("Join.Spawn", "True");
+	getConfig().addDefault("Join.Hub", "False");
+	getConfig().addDefault("Join.Lobby", "False");
+	getConfig().addDefault("NOTIFICATIONS.Warp", "True");
+	getConfig().addDefault("NOTIFICATIONS.Perm", "True");
+	getConfig().addDefault("NOTIFICATIONS.Args", "True");
+	       
+	if(getConfig().getInt("ConfigVersion") !=3.1){
+		if (!getConfig().contains("Metrics")) {
+			getConfig().set("Metrics", true);
+		}
+	}
+	        
+	getConfig().options().copyDefaults(true);
+	saveConfig();
 
-			getConfig().options().copyDefaults(true);
-			saveConfig();
-	    }
-	    if (!getConfig().getString("Config Version").equalsIgnoreCase("3.1")){
-	    	getLogger().warning("Config Outdated!!!! Plugin will not work properly!! Please copy your settings, delete the config and restart your server!!");
+	getConfig().options().copyDefaults(true);
+	saveConfig();
+	}
+	if (!getConfig().getString("ConfigVersion").equalsIgnoreCase("3.1")){
+		getLogger().warning("Config Outdated!!!! Plugin will not work properly!! Please copy your settings, delete the config and restart your server!!");
 	}
 }
 
 	
 	public void registerCommands(){
-		//AdminInv Commands [Up Version 1.2]
-		getCommand("giveghast").setExecutor(new GiveGhast());
-		getCommand("giveblaze").setExecutor(new GiveBlaze());
-		getCommand("adminhelp").setExecutor(new AdminHelp());
-		getCommand("modhelp").setExecutor(new ModeratorHelp());
+	//AdminInv Commands [Up Version 1.2]
+	getCommand("giveghast").setExecutor(new GiveGhast());
+	getCommand("giveblaze").setExecutor(new GiveBlaze());
+	getCommand("adminhelp").setExecutor(new AdminHelp());
+	getCommand("modhelp").setExecutor(new ModeratorHelp());
 		
-		//Warp Command [Up Version 1.3]
-		getCommand("warp").setExecutor(new WarpCommand(this));
-		getCommand("delwarp").setExecutor(new WarpCommand(this));
-		getCommand("setwarp").setExecutor(new WarpCommand(this));
-		getCommand("warphelp").setExecutor(new WarpHelp());
+	//Warp Command [Up Version 1.3]
+	getCommand("warp").setExecutor(new WarpCommand(this));
+	getCommand("delwarp").setExecutor(new WarpCommand(this));
+	getCommand("setwarp").setExecutor(new WarpCommand(this));
+	getCommand("warphelp").setExecutor(new WarpHelp());
 		
-		//Spawn System [Up Version 1.3]
-		getCommand("setspawn").setExecutor(new SpawnCommand(this));
-		getCommand("spawn").setExecutor(new SpawnCommand(this));
+	//Spawn System [Up Version 1.3]
+	getCommand("setspawn").setExecutor(new SpawnCommand(this));
+	getCommand("spawn").setExecutor(new SpawnCommand(this));
 		
-	    //Lobby System [Up Version 1.3]
-		getCommand("setlobby").setExecutor(new LobbyCommand(this));
-		getCommand("lobby").setExecutor(new LobbyCommand(this));
+	//Lobby System [Up Version 1.3]
+	getCommand("setlobby").setExecutor(new LobbyCommand(this));
+	getCommand("lobby").setExecutor(new LobbyCommand(this));
 	    
-	    //Hub System [Up Version 1.3]
-		getCommand("sethub").setExecutor(new HubCommand(this));
-		getCommand("hub").setExecutor(new HubCommand(this));
+	//Hub System [Up Version 1.3]
+	getCommand("sethub").setExecutor(new HubCommand(this));
+	getCommand("hub").setExecutor(new HubCommand(this));
 	    
 	}
 	
 	public void registerListener(){
 	//Admin Inventory [Up Version 1.0]
 	getServer().getPluginManager().registerEvents(new AdminFunction(), this);
-	
+		
 	//Moderator Inventory [Up Version 1.1]
 	getServer().getPluginManager().registerEvents(new ModeratorFunction(), this);
 		
 	//Menü Open [Up Version 1.0 | Up Version 1.1]
 	getServer().getPluginManager().registerEvents(new GhastTear(), this); // Admin
 	getServer().getPluginManager().registerEvents(new BlazeRoad(), this); // Moderator
-		
+	
 	//Blocken [Up Version 1.3]
 	getServer().getPluginManager().registerEvents(new Blocken(), this);
 	}
 	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
-	{	Player p = (Player)sender;
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+		Player p = (Player)sender;
 		if(cmd.getName().equalsIgnoreCase("admininv")){
 			if(p.hasPermission("admininv.admininv")){
 				p.playSound(p.getLocation(), Sound.FIREWORK_BLAST, 1000.0F, 6.0F);
@@ -308,13 +348,15 @@ public class AdminMenu extends JavaPlugin{
 				Hardmeta.setLore(H);
 				Hard.setItemMeta(Hardmeta);
 				
-				//Teleport
-				ItemStack Teleport = new ItemStack(Material.BOWL);
-				ItemMeta Teleportmeta = Teleport.getItemMeta();
-				ArrayList<String> Tele = new ArrayList<String>();
-				Tele.add(ChatColor.RED + "You can Teleport to Players");
-				Teleportmeta.setLore(Tele);
-				Teleport.setItemMeta(Teleportmeta);
+				//Clear Inventory
+				ItemStack Clear = new ItemStack(Material.CACTUS);
+				ItemMeta Clearmeta = Clear.getItemMeta();
+				ArrayList<String> CI = new ArrayList<String>();
+				Clearmeta.setDisplayName(ChatColor.DARK_GRAY + "Clear Inventory");
+				CI.add("You can clear Inventory");
+				Clearmeta.setLore(CI);
+				Clear.setItemMeta(Clearmeta);
+				
 				
 				//Inventory Line 1
 				inv.setItem(0, Heal);
@@ -337,7 +379,7 @@ public class AdminMenu extends JavaPlugin{
 				//Inventory Line 4
 				inv.setItem(28, WeatherCl);
 				inv.setItem(27, ClearW);
-				inv.setItem(35, Teleport);
+				inv.setItem(35, Clear);
 
 				
 				//Inventory Line 5
@@ -474,15 +516,15 @@ public class AdminMenu extends JavaPlugin{
 					Vanishmeta.setLore(V);
 					Vanish.setItemMeta(Vanishmeta);
 					
-					//Teleport
-					ItemStack Teleport = new ItemStack(Material.BOWL);
-					ItemMeta Teleportmeta = Teleport.getItemMeta();
-					ArrayList<String> Tele = new ArrayList<String>();
-					Teleportmeta.setDisplayName("Teleporter");
-					Tele.add(ChatColor.RED + "You can Teleport to Players");
-					Teleportmeta.setLore(Tele);
-					Teleport.setItemMeta(Teleportmeta);
-
+					//Clear Inventory
+					ItemStack Clear = new ItemStack(Material.CACTUS);
+					ItemMeta Clearmeta = Clear.getItemMeta();
+					ArrayList<String> CI = new ArrayList<String>();
+					Clearmeta.setDisplayName(ChatColor.DARK_GRAY + "Clear Inventory");
+					CI.add("You can clear Inventory");
+					Clearmeta.setLore(CI);
+					Clear.setItemMeta(Clearmeta);
+					
 					
 					//Inventory Line 1
 					inv1.setItem(0, Heal);
@@ -505,7 +547,7 @@ public class AdminMenu extends JavaPlugin{
 					//Inventory Line 4
 					inv1.setItem(27, WeatherClear);
 					inv1.setItem(28, ClearWeather);
-					inv1.setItem(35, Teleport);
+					inv1.setItem(35, Clear);
 					
 					//Inventory Line 5
 					
