@@ -40,6 +40,28 @@
 #[+] LobbyCommand.java added whit Command [/setlobby and /lobby]
 #[+] HubCommand.java added whit Command [/sethub and /hub]
 #[+] SpawnCommand.java added whit Command [/setspawn and /spawn]
+#[+] Metrics added
+#[+] SQLibrary added white [MySQL | SQLite | DatabaseHandler]
+#--------------
+
+#--------------
+#06.11.2015
+#[+/-] /setspawn error message fixed
+#[+] Code Error´s Fixed in DE/EN
+#--------------
+
+#--------------
+#07.11.2015
+#[+] Admin and Moderator Function added [Clear Inventory]
+#[+]	Description of Clear Inventory Object add
 #
+#--------------
+
+#--------------
+#08.11.2015
+#[+] Add Admin and Moderator Item [Sign]
+#	| [AdminInv] |	 | [AdminInv] |
+#	|   Admin	   |	 |    Mod	    |
+#	| Click Here |	 | Click Here |
 #
 #
